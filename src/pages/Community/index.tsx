@@ -105,9 +105,12 @@ const Community: React.FC = () => {
           </div>
         
             </div>
-          </section>
+            </section>
+          
+          
         </aside>
       </div>
+      
     </>
   );
 };
