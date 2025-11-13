@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { base } from 'thirdweb/chains';
 
 interface UploadBoxProps {
   onFileSelect?: (file: File) => void;
@@ -7,6 +8,8 @@ interface UploadBoxProps {
 const UploadBox: React.FC<UploadBoxProps> = ({ onFileSelect }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const baseUrl = import.meta.env.VITE_BACKEND_URL ; // Example base URL
+  const [res, setRes] = useState<any>(null);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -41,10 +44,32 @@ const UploadBox: React.FC<UploadBoxProps> = ({ onFileSelect }) => {
     }
   };
 
-  const handleOCR = () => {
+  const handleOCR = async() => {
+    
     if (selectedFile) {
-      console.log('Triggering OCR for:', selectedFile.name);
-      // TODO: Call OCR API here
+      try {
+        console.log('Triggering OCR for:', selectedFile.name);
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        
+        const response = await fetch(`${baseUrl}/bot/extract`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Server error (${response.status}): ${errorText}`);
+        }
+
+        const data = await response.json();
+        console.log('OCR Response:', data);
+        setRes(data);
+      } catch (error: any) {
+        console.error('OCR Error:', error);
+        alert(`Token Limit Reached. Please try again later.`);
+        setRes({ error: error.message });
+      }
     }
   };
 
@@ -88,6 +113,12 @@ const UploadBox: React.FC<UploadBoxProps> = ({ onFileSelect }) => {
             >
               ✨ Extract & Analyze (OCR)
             </button>
+            {res && (<div>
+              <p className="mt-4 text-sm text-green-400">✅ OCR Extraction Complete!</p>
+              <pre className="mt-2 p-4 bg-neutral-900 text-left text-xs rounded max-h-64 overflow-auto">
+                {JSON.stringify(res, null, 2)}
+              </pre>
+            </div>)}
           </div>
         )}
       </div>
