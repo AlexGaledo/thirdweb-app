@@ -6,7 +6,7 @@ const QuickSummary: React.FC = () => {
     fontWeight: 100, // Light weight for labels
     fontStyle: 'normal',
     fontSize: '14px',
-    lineHeight: '23.8px',
+    lineHeight: '20.8px',
     letterSpacing: '1px',
     textAlign: 'center',
     textTransform: 'uppercase',
@@ -28,10 +28,18 @@ const QuickSummary: React.FC = () => {
     WebkitTextFillColor: 'transparent', // Make text transparent to show gradient
   };
 
+  const sinagTokenValueStyle: React.CSSProperties = {
+    ...valueStyle,
+    background: 'none',
+    WebkitBackgroundClip: 'unset',
+    WebkitTextFillColor: 'unset',
+    color: '#FE9126',
+  };
+
   const summaryBoxClasses = "p-4 bg-neutral flex flex-col items-center justify-center";
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border-l border-transparent">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-0 border-l border-transparent">
       {/* Current Usage */}
       <div className={`${summaryBoxClasses} border-r border-white/20`}>
         <span style={labelStyle}>Current Usage</span>
@@ -45,13 +53,9 @@ const QuickSummary: React.FC = () => {
       {/* Sinag Tokens */}
       <div className={`${summaryBoxClasses} border-r border-white/20`}>
         <span style={labelStyle}>Sinag Tokens</span>
-        <strong style={valueStyle}>29 SIN</strong>
+        <strong style={sinagTokenValueStyle}>29 SIN</strong>
       </div>
-      {/* Bill Estimate */}
-      <div className={summaryBoxClasses}>
-        <span style={labelStyle}>Bill Estimate</span>
-        <strong style={valueStyle}>₱2,450</strong>
-      </div>
+      
     </div>
   );
 };

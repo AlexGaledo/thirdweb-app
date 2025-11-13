@@ -14,14 +14,14 @@ export default function Header() {
     <header className="absolute top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/5">
       <div className="flex items-center justify-between px-6 sm:px-10 py-4 max-w-7xl mx-auto">
         {/* 🔆 Left: Title */}
-        <div className="flex items-center gap-2 text-white">
+        <NavLink to ="/" className="flex items-center gap-2 text-white">
           <img
             src={sinag}
             alt="Sinag Logo"
             className="w-7 h-7 object-contain" // ✅ Adjust size as needed
           />
           <span className="text-xl font-semibold tracking-tight">Sinag</span>
-        </div>
+        </NavLink>
 
         {/* 🧭 Center: Navbar (shifted slightly right) */}
         <nav
