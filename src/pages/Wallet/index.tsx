@@ -5,15 +5,32 @@ import RedeemModal from '../../components/RedeemModal/RedeemModal';
 import { Sparkles, History } from 'lucide-react';
 import { useEffect } from 'react';
 import Footer from '../../components/Footer';
+import { useActiveWallet } from 'thirdweb/react';
+import { useReadContract } from 'thirdweb/react';
+import { balanceOf } from 'thirdweb/extensions/erc20';
+import { client } from '@/client';
+import { getContract } from 'thirdweb';
+import { defineChain } from 'thirdweb/chains';
 
 const Wallet: React.FC = () => {
     useEffect(() => {
       document.title = "Wallet | Sinag";
     }, []);
-
+  const sinagContract = getContract({
+      client,
+      chain: defineChain(11155111), // Sepolia chain ID
+      address: "0x8cFeCD58d76074a81e679108129832F0Fd50238C",
+    });
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
-
-  const tokenBalance = 75;
+  const wallet = useActiveWallet();
+  const { data: sinagBalance, isLoading: isLoadingSinag } = useReadContract(
+      balanceOf,
+      {
+        contract: sinagContract,
+        address: wallet?.getAccount()?.address || "0x0",
+      }
+    );
+  const tokenBalance = sinagBalance ? Number(sinagBalance) / 10**18 : 0;
   const blockchainAddress = '0x742d35Cc6634C0532925a3b844Bc9e7595f42e0';
     
   return (
