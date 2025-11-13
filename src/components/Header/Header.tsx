@@ -29,14 +29,14 @@ export default function Header() {
       <header className="absolute top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/5">
         <div className="flex items-center justify-between px-6 sm:px-10 py-4 max-w-7xl mx-auto">
           {/* Left: Logo */}
-          <div className="flex items-center gap-2 text-white">
+          <NavLink to='/' className="flex items-center gap-2 text-white">
             <img
               src={sinag}
               alt="Sinag Logo"
               className="w-7 h-7 object-contain"
             />
             <span className="text-xl font-semibold tracking-tight">Sinag</span>
-          </div>
+          </NavLink>
 
           {/* Center: Desktop Navbar */}
           <nav
@@ -196,6 +196,7 @@ export default function Header() {
                     <span className="text-sm font-medium">Settings</span>
                   </NavLink>
                 </div>
+              
               </div>
             </motion.div>
           </>
