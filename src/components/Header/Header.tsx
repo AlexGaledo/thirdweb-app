@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { ConnectButton, darkTheme, useActiveWallet } from "thirdweb/react";
+import { ConnectButton, darkTheme, useActiveWallet, useReadContract } from "thirdweb/react";
 import { client } from "../../client";
 import { FiSettings, FiMenu, FiX } from "react-icons/fi";
 import { FaWallet } from "react-icons/fa";
@@ -8,6 +8,7 @@ import sinag from "../../sinag.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { createThirdwebClient, getContract } from "thirdweb";
 import { defineChain } from "thirdweb/chains";
+import { balanceOf } from "thirdweb/extensions/erc20";
 
 export default function Header() {
   const wallet = useActiveWallet();
@@ -15,6 +16,22 @@ export default function Header() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
+
+  // SINAG Token Contract
+  const sinagContract = getContract({
+    client,
+    chain: defineChain(11155111), // Sepolia chain ID
+    address: "0x8cFeCD58d76074a81e679108129832F0Fd50238C",
+  });
+
+  // Get SINAG token balance
+  const { data: sinagBalance } = useReadContract(
+    balanceOf,
+    {
+      contract: sinagContract,
+      address: wallet?.getAccount()?.address || "0x0",
+    }
+  );
 
   const navItems = [
     { label: "Dashboard", to: "/dashboard" },
@@ -103,6 +120,11 @@ export default function Header() {
                 })}
                 connectButton={{
                   label: "Connect Wallet",
+                }}
+                detailsButton={{
+                  displayBalanceToken: {
+                    [11155111]: "0x8cFeCD58d76074a81e679108129832F0Fd50238C", // SINAG token on Sepolia
+                  },
                 }}
               />
             </div>
