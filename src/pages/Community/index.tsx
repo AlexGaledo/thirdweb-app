@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import '../../components/ui/glass-box.css';
 import { Sparkles, PieChart, Award, Crown } from "lucide-react";
+import Footer from '../../components/Footer';
 
 const Community: React.FC = () => {
   const totalCO2 = 2350; // kg
@@ -12,6 +13,10 @@ const Community: React.FC = () => {
   const [activeNav, setActiveNav] = useState<string>('Dashboard');
   const navigate = useNavigate();
   const location = useLocation();
+
+    useEffect(() => {
+      document.title = "Community | Sinag";
+    }, []);
 
   useEffect(() => {
     const path = location.pathname.toLowerCase();
@@ -104,10 +109,9 @@ const Community: React.FC = () => {
             </div>
             </section>
           
-          
         </aside>
       </div>
-      
+      <Footer />
     </>
   );
 };

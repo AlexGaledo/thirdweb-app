@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
+import Footer from '../../components/Footer';
 
 type Category = 'All' | 'Appliance' | 'Voucher' | 'Donation' | 'Partner';
 
@@ -71,7 +72,14 @@ const Marketplace: React.FC = () => {
         <div className="overflow-x-auto py-3">
           <div className="flex gap-6 items-center px-2">
             {partners.map((p) => (
-              <div key={p} className="flex-shrink-0 w-48 h-20 bg-neutral border border-neutral-800 rounded flex items-center justify-center text-sm text-neutral-300">
+              <div key={p} className="flex-shrink-0 w-48 h-20 rounded flex items-center justify-center text-sm text-neutral-300" 
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  backdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  boxShadow: "inset 0 2px 12px rgba(255, 255, 255, 0.04)"
+                }}
+              >
                 {p}
               </div>
             ))}
@@ -86,14 +94,18 @@ const Marketplace: React.FC = () => {
             <button
               key={c}
               onClick={() => setFilter(c)}
-              className={`px-3 py-1 text-sm rounded ${filter === c ? 'bg-[#FE9126] text-white' : 'bg-neutral text-neutral-300 border border-neutral-800'}`}
+              className={`px-3 py-1 text-sm rounded transition-all ${filter === c ? 'bg-[#FE9126] text-white' : 'text-neutral-300'}`}
+              style={filter === c ? {} : {
+                background: "rgba(255, 255, 255, 0.05)",
+                backdropFilter: "blur(12px)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxShadow: "inset 0 2px 12px rgba(255, 255, 255, 0.04)"
+              }}
             >
               {c}
             </button>
           ))}
         </div>
-
-        <div className="text-sm text-neutral-400">Community Goal: When users collectively save <strong>10,000 kWh</strong>, Meralco will plant <strong>500 trees</strong> 🌳</div>
       </section>
 
       {/* Rewards grid */}
@@ -102,6 +114,7 @@ const Marketplace: React.FC = () => {
       </section>
 
       {isRedeemOpen && <RedeemModal onClose={() => setIsRedeemOpen(false)} tokenBalance={75} />}
+        <Footer />
     </>
   );
 };

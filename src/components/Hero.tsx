@@ -4,6 +4,8 @@ import LightRays from './LightRays';
 import { ConnectButton, darkTheme, useActiveWallet } from "thirdweb/react";
 import { client } from "../client"
 import { isAddress } from "thirdweb/utils";
+import sinag from "../sinag.svg";
+import Footer from "./Footer";
 
 const features = [
   {
@@ -164,34 +166,7 @@ const Hero = () => {
       </div>
     </section>
 
-      {/* Footer */}
-      <footer className="relative py-12 sm:py-16 px-4 sm:px-6 border-t border-glass-border/10 z-10">
-        <div className="container mx-auto relative z-10">
-          <div className="flex flex-col items-center text-center mb-8 sm:mb-12">
-            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <Zap className="w-5 sm:w-6 h-5 sm:h-6 text-sinag-orange-start" />
-              <span className="text-lg sm:text-xl font-bold text-sinag-text">Sinag</span>
-            </div>
-            <p className="text-xs sm:text-sm text-sinag-text-muted/60 max-w-xs sm:max-w-md mb-4 sm:mb-6">
-              Empowering every Filipino to light up a sustainable tomorrow.
-            </p>
-            <Button
-              variant="outline"
-              className="text-xs sm:text-sm border-glass-border/20 bg-glass-bg/5 text-sinag-text hover:bg-glass-bg/10"
-            >
-              Shine with Sinag
-            </Button>
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 sm:pt-8 border-t border-glass-border/10 text-xs sm:text-sm text-sinag-text-muted/40">
-            <p>Copyright ©2025</p>
-            <div className="flex gap-4 sm:gap-8 text-center md:text-right">
-              <span>All rights reserved</span>
-              <span>Sinag</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+    <Footer />
     </div>
   );
 };
