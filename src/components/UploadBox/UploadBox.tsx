@@ -102,6 +102,8 @@ const UploadBox: React.FC<UploadBoxProps> = ({ onFileSelect }) => {
           console.log(data.rate_this_month);
           update_sinagTokens(data.Token_reward || 0);
           console.log(data.Token_reward);
+          update_History(data.history || []);
+          console.log(data.history);
 
       //     // Request backend to mint SINAG tokens to user's wallet
       //     if (data.Token_reward && data.Token_reward > 0 && wallet) {
