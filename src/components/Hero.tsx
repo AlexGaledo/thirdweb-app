@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import LightRays from './LightRays';
 import { ConnectButton, darkTheme, useActiveWallet } from "thirdweb/react";
 import { client } from "../client"
+import { isAddress } from "thirdweb/utils";
 
 const features = [
   {
@@ -26,6 +27,10 @@ const features = [
 ];
 
 const Hero = () => {
+  const wallet = useActiveWallet();
+  const address = wallet?.getAccount()?.address;
+  const isConnected = address && isAddress(address);
+
   return (
     <div className="relative bg-gradient-to-br from-sinag-dark via-sinag-dark">
       {/* Shared Background */}
@@ -101,22 +106,29 @@ const Hero = () => {
           </p>
 
           {/* CTA Button with Zap Icon and Connect Wallet */}
-          <div className="h-10 sm:h-12 md:h-[45px] px-6 sm:px-8 bg-gradient-to-b from-sinag-orange-start to-sinag-orange-end hover:opacity-90 transition-opacity rounded-[50px] text-black font-medium text-sm sm:text-base shadow-lg shadow-sinag-orange-start/20 flex items-center justify-center gap-2 w-fit mx-auto">
-            <Zap className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" />
-            <ConnectButton
-              client={client}
-              theme={darkTheme({
-                colors: {
-                  primaryButtonText: "#000000",
-                  primaryButtonBg: "transparent",
-                  secondaryButtonHoverBg: "rgba(0, 0, 0, 0.1)",
-                },
-              })}
-              connectButton={{
-                label: "Start With Sinag",
-              }}
-            />
-          </div>           
+          {isConnected ? (
+            <button className="h-10 sm:h-12 md:h-[45px] px-6 sm:px-8 bg-gradient-to-b from-sinag-orange-start to-sinag-orange-end hover:opacity-90 transition-opacity rounded-[50px] text-black font-medium text-sm sm:text-base shadow-lg shadow-sinag-orange-start/20 flex items-center justify-center gap-2 w-fit mx-auto">
+              <Zap className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" />
+              <span>Start With Sinag</span>
+            </button>
+          ) : (
+            <div className="h-10 sm:h-12 md:h-[45px] px-6 sm:px-8 bg-gradient-to-b from-sinag-orange-start to-sinag-orange-end hover:opacity-90 transition-opacity rounded-[50px] text-black font-medium text-sm sm:text-base shadow-lg shadow-sinag-orange-start/20 flex items-center justify-center gap-2 w-fit mx-auto">
+              <Zap className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" />
+              <ConnectButton
+                client={client}
+                theme={darkTheme({
+                  colors: {
+                    primaryButtonText: "#000000",
+                    primaryButtonBg: "transparent",
+                    secondaryButtonHoverBg: "rgba(0, 0, 0, 0.1)",
+                  },
+                })}
+                connectButton={{
+                  label: "Start With Sinag",
+                }}
+              />
+            </div>
+          )}           
         </div>
       </section>
 
