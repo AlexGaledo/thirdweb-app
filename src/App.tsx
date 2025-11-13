@@ -3,8 +3,9 @@ import thirdwebIcon from "./thirdweb.svg";
 import { client } from "./client";
 import HomeDashboard from "./pages/HomeDashboard";
 import { Route, Routes } from "react-router-dom";
-import { BillTracker } from "./pages";
+import { BillTracker, Wallet } from "./pages";
 import { Chatbot }	from "./pages";
+
 
 export function App() {
 	return (
@@ -13,6 +14,7 @@ export function App() {
 			<Route path="/dashboard" element={<HomeDashboard/>}/>
 			<Route path="/billtracker" element={<BillTracker/>}/>
 			<Route path="/chatbot" element={<Chatbot/>}/>
+			<Route path="/wallet" element={<Wallet/>}/>
 		</Routes>
 		</>
 	);
