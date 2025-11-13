@@ -1,10 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import UploadBox from '../../components/UploadBox/UploadBox';
+import BillSummaryCards from '../../components/BillSummaryCards/BillSummaryCards';
+import BaselineChart from '../../components/Charts/BaselineChart';
 
 const BillTracker: React.FC = () => {
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (file: File) => {
+    setUploadedFile(file);
+    console.log('File uploaded:', file.name);
+    // TODO: trigger OCR extraction here
+  };
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">Bill Management / Smart Tracker</h1>
-      <p className="mt-2 text-sm text-neutral-400">Upload and view historical Meralco bills with AI parsing.</p>
+    <div className="p-6 max-w-7xl mx-auto">
+      {/* Header */}
+      <section className="mb-8">
+        <h1 className="text-3xl font-semibold mb-2">Bill Management</h1>
+        <p className="text-sm text-neutral-400">Upload and view your historical Meralco bills. Our AI will automatically parse and analyze them.</p>
+      </section>
+
+      {/* Upload Area */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Upload Your Bill</h2>
+        <UploadBox onFileSelect={handleFileUpload} />
+        {uploadedFile && (
+          <p className="mt-2 text-sm text-green-400">✅ File selected: <strong>{uploadedFile.name}</strong></p>
+        )}
+      </section>
+
+      {/* Bill Summary Cards */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Bill History</h2>
+        <BillSummaryCards />
+      </section>
+
+      {/* AI Baseline Chart */}
+      <section>
+        <h2 className="text-lg font-semibold mb-4">Consumption Analysis</h2>
+        <div className="p-4 bg-neutral-900 rounded">
+          <BaselineChart />
+        </div>
+      </section>
     </div>
   );
 };
