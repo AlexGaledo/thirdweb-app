@@ -61,11 +61,11 @@ const Hero = () => {
         raysOrigin="top-center"
         raysColor="#FDA205"
         raysSpeed={1.5}
-        lightSpread={1.3}
-        rayLength={0.7}
+        lightSpread={3.2}
+        rayLength={2.5}
         followMouse={true}
         mouseInfluence={0.1}
-        noiseAmount={0.1}
+        noiseAmount={0.5}
         distortion={0.05}
         className="custom-rays absolute inset-0 z-10"
       /> 
